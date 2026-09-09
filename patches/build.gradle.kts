@@ -1,14 +1,13 @@
-group = "app.template"
+group = "app.ytvr"
 
 patches {
-    // TODO: Update this section with your project details.
     about {
-        name = "UserXYZ Patches"
-        description = "Patches for apps I like"
-        source = "git@github.com:UserXYZ/morphe-patches.git"
-        author = "Awesome dev"
-        contact = "na"
-        website = "na"
+        name = "YouTube VR Patches"
+        description = "Morphe patches for YouTube VR on Meta Quest"
+        source = "https://github.com/WalkTheEarth/morphe-ytvr-patches.git"
+        author = "WalkTheEarth"
+        contact = "https://github.com/WalkTheEarth"
+        website = "https://github.com/WalkTheEarth/morphe-ytvr-patches"
         license = "GPLv3"
     }
 }
