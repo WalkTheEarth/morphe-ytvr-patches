@@ -23,9 +23,9 @@ Supported app versions:
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0](https://github.com/WalkTheEarth/morphe-ytvr-patches/releases/tag/v1.0.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
+> **[v1.1.0-dev.1](https://github.com/WalkTheEarth/morphe-ytvr-patches/releases/tag/v1.1.0-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
 <details open>
-<summary>📦 YouTube VR&nbsp;&nbsp;•&nbsp;&nbsp;6 patches</summary>
+<summary>📦 YouTube VR&nbsp;&nbsp;•&nbsp;&nbsp;7 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -37,6 +37,7 @@ Supported app versions:
 |----------|----------------|-----------|
 | [Disable DRC audio](#disable-drc-audio) | Disables DRC (Dynamic Range Compression) audio. |  |
 | [Disable QUIC protocol](#disable-quic-protocol) | Adds an option to disable QUIC (Quick UDP Internet Connections) network protocol. | • Disable QUIC protocol |
+| [GmsCore support](#gmscore-support) | Allows the app to work without root by using a different package name when patched using a GmsCore instead of Google Play Services. |  |
 | [Hide ads](#hide-ads) | Hides video ads. |  |
 | [Open links externally](#open-links-externally) | Opens links in an external app instead of the in-app browser. |  |
 | [Remove viewer discretion dialog](#remove-viewer-discretion-dialog) | Removes the dialog that appears when opening a video that has been age-restricted by accepting it automatically. This does not bypass the age restriction. |  |
