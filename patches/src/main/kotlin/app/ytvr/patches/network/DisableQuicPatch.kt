@@ -2,13 +2,16 @@ package app.ytvr.patches.network
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.InstructionLocation.MatchAfterImmediately
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.morphe.patcher.literal
 import app.morphe.patcher.methodCall
+import app.morphe.patcher.opcode
 import app.morphe.patcher.patch.booleanOption
 import app.morphe.patcher.patch.bytecodePatch
 import app.ytvr.patches.shared.Constants.COMPATIBILITY_YOUTUBE_VR
+import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
 /**
@@ -27,7 +30,8 @@ private val cronetEngineBuilderFingerprint = Fingerprint(
         methodCall(
             smali = "Lorg/chromium/net/ExperimentalCronetEngine\$Builder;->enableQuic(Z)Lorg/chromium/net/ExperimentalCronetEngine\$Builder;",
             location = MatchAfterImmediately()
-        )
+        ),
+        opcode(Opcode.MOVE_RESULT_OBJECT, MatchAfterImmediately())
     )
 )
 
@@ -46,14 +50,18 @@ val disableQuicProtocolPatch = bytecodePatch(
     )
 
     execute {
-        if (disableQuic) {
+        if (disableQuic == true) {
             cronetEngineBuilderFingerprint.let { fingerprint ->
                 val literalMatch = fingerprint.instructionMatches[0]
+                val moveResultMatch = fingerprint.instructionMatches[2]
                 val register = fingerprint.method
                     .getInstruction<OneRegisterInstruction>(literalMatch.index).registerA
 
-                // Replace the constant passed to enableQuic with false.
+                // The register holding the constant also feeds the enableHttp2 call that
+                // follows, so replace the constant passed to enableQuic with false
+                // and restore it to true once the call has returned.
                 fingerprint.method.replaceInstruction(literalMatch.index, "const/4 v$register, 0x0")
+                fingerprint.method.addInstructions(moveResultMatch.index + 1, "const/4 v$register, 0x1")
             }
         }
     }

@@ -33,12 +33,17 @@ val spoofAppVersionPatch = bytecodePatch(
     )
 
     execute {
+        // Escape the configured version name for use in a smali string literal.
+        val versionName = (spoofedVersionName ?: "1.61.48")
+            .replace("\\", "\\\\")
+            .replace("\"", "\\\"")
+
         // Always return the configured version name,
         // regardless of the actual version of the installed app.
         appVersionFingerprint.method.addInstructions(
             0,
             """
-                const-string v0, "$spoofedVersionName"
+                const-string v0, "$versionName"
                 return-object v0
             """
         )
