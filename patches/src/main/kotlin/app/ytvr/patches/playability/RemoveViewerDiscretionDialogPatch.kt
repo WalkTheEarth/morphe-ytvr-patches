@@ -36,6 +36,35 @@ val removeViewerDiscretionDialogPatch = bytecodePatch(
         //        returns playable streams for age-restricted videos.
         val playabilityClass = PlayabilityRouterFingerprint.originalClassDef
 
+        // Matches the request decorator that copies the confirmation flags
+        // onto outgoing player requests.
+        Fingerprint(
+            returnType = "V",
+            parameters = listOf("Lmxd;"),
+            filters = listOf(
+                fieldAccess(
+                    definingClass = "Lmxd;",
+                    name = "A",
+                    type = "Z",
+                    opcode = Opcode.IPUT_BOOLEAN,
+                ),
+                fieldAccess(
+                    definingClass = "Lmxd;",
+                    name = "z",
+                    type = "Z",
+                    opcode = Opcode.IPUT_BOOLEAN,
+                ),
+            )
+        ).match(playabilityClass).method.addInstructions(
+            0,
+            """
+                const/4 v0, 0x1
+                iput-boolean v0, p1, Lmxd;->A:Z
+                iput-boolean v0, p1, Lmxd;->z:Z
+                return-void
+            """
+        )
+
         // Matches the method returning the adult content confirmation flag.
         Fingerprint(
             returnType = "Z",
