@@ -15,6 +15,9 @@ import app.morphe.patcher.extensions.InstructionExtensions.instructions
 import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.string
+import app.ytvr.patches.misc.gms.Constants.ACTIONS
+import app.ytvr.patches.misc.gms.Constants.AUTHORITIES
+import app.ytvr.patches.misc.gms.Constants.PERMISSIONS
 import app.ytvr.patches.shared.Constants.COMPATIBILITY_YOUTUBE_VR
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
@@ -473,4 +476,5 @@ private object Constants {
         "com.google.android.gms.fonts",
         "com.google.android.gms.phenotype",
         "com.google.android.gsf.gservices",
+    )
 }
