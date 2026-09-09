@@ -25,10 +25,10 @@ val removeViewerDiscretionDialogPatch = bytecodePatch(
             val register = fingerprint.method
                 .getInstruction<OneRegisterInstruction>(moveResultMatch.index).registerA
 
-            // Override the result of the "is playable" check with true,
-            // so videos that require age or content confirmation continue
+            // Override the result of the inverted "is playable" check ("is NOT playable")
+            // with false, so videos that require age or content confirmation continue
             // to the playable path instead of showing the dialog.
-            fingerprint.method.addInstructions(moveResultMatch.index + 1, "const/4 v$register, 0x1")
+            fingerprint.method.addInstructions(moveResultMatch.index + 1, "const/4 v$register, 0x0")
         }
         // endregion
 
